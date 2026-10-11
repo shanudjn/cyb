@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MIT OCW Security Library — Packet &amp; Proof</title>
+    <style>
+      :root { color-scheme: dark; --ink:#0d110e; --panel:#171d18; --line:#374039; --paper:#f1f0e8; --muted:#a3aa9f; --mint:#b9f65d; --blue:#8bc9ff; }
+      * { box-sizing:border-box; }
+      body { margin:0; background:var(--ink); color:var(--paper); font:16px/1.6 Inter,system-ui,sans-serif; }
+      main { width:min(1120px,calc(100% - 40px)); margin:auto; padding:64px 0 100px; }
+      a { color:var(--blue); text-underline-offset:3px; }
+      .back { display:inline-block; margin-bottom:42px; color:var(--mint); text-decoration:none; }
+      .eyebrow { color:var(--mint); font:700 11px/1.2 ui-monospace,monospace; letter-spacing:.16em; }
+      h1,h2,h3 { line-height:1.08; letter-spacing:-.035em; }
+      h1 { max-width:900px; margin:14px 0 22px; font-size:clamp(46px,8vw,90px); }
+      h2 { margin-top:70px; font-size:clamp(30px,5vw,48px); }
+      .lede { max-width:780px; color:var(--muted); font-size:20px; }
+      .notice { margin:30px 0; padding:20px; border-left:4px solid var(--mint); background:#162016; color:var(--muted); }
+      .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; }
+      .card { padding:25px; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
+      .card h3 { margin:10px 0; font-size:25px; }
+      .card p,.card li { color:var(--muted); font-size:14px; }
+      .meta { color:var(--mint); font:11px ui-monospace,monospace; letter-spacing:.1em; }
+      table { width:100%; border-collapse:collapse; background:var(--panel); }
+      th,td { padding:15px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+      th { color:var(--mint); font:700 11px ui-monospace,monospace; letter-spacing:.1em; }
+      td { color:var(--muted); }
+      @media(max-width:700px){ .grid{grid-template-columns:1fr} table{display:block;overflow:auto} }
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="back" href="../index.html#/resources">← Return to Packet &amp; Proof</a>
+      <span class="eyebrow">RESEARCH SNAPSHOT / 2026-10-11</span>
+      <h1>MIT OpenCourseWare security library.</h1>
+      <p class="lede">A curated map of official MIT material that supports the seven-day course. The full MIT subjects are semester-scale; this page selects the most valuable foundation for a one-week intensive.</p>
+      <div class="notice"><strong>Attribution and scope.</strong> Course names and linked materials belong to MIT OpenCourseWare and their respective authors. This library contains original summaries and links—not a mirrored corpus, MIT credential, or MIT endorsement. Use each official “Download Course” page for licensed offline packages.</div>
+
+      <h2>The core corpus</h2>
+      <div class="grid">
+        <article class="card"><span class="meta">6.858 / FALL 2014 / GRADUATE</span><h3>Computer Systems Security</h3><p>The primary spine: threat models, operating-system security, privilege separation, capabilities, web security, protocols, hardware, labs and exams.</p><p><a href="https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/">Course home</a> · <a href="https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/download/">Official download</a></p></article>
+        <article class="card"><span class="meta">6.5660 / SPRING 2024 / UG + GRAD</span><h3>Computer Systems Security</h3><p>The current course framing covers secure-system design, privilege separation, cryptographic protocols, trusted hardware, web applications and mobile phones.</p><p><a href="https://ocw.mit.edu/courses/6-5660-computer-systems-security-spring-2024/">Course home</a></p></article>
+        <article class="card"><span class="meta">6.857 / SPRING 2014 / GRADUATE</span><h3>Network and Computer Security</h3><p>Ronald Rivest’s notes and problem sets cover security mechanisms, perfect secrecy, hashes, cryptography and network/computer security.</p><p><a href="https://ocw.mit.edu/courses/6-857-network-and-computer-security-spring-2014/">Course home</a> · <a href="https://ocw.mit.edu/courses/6-857-network-and-computer-security-spring-2014/download/">Official download</a></p></article>
+        <article class="card"><span class="meta">6.033 / SPRING 2018 / UNDERGRADUATE</span><h3>Computer System Engineering</h3><p>Use the operating-systems, networking and security portions for the system context behind guards, complete mediation, least privilege and DNSSEC.</p><p><a href="https://ocw.mit.edu/courses/6-033-computer-system-engineering-spring-2018/">Course home</a> · <a href="https://ocw.mit.edu/courses/6-033-computer-system-engineering-spring-2018/pages/week-11/lecture-20-outline/">Security lecture</a></p></article>
+        <article class="card"><span class="meta">6.1200J / SPRING 2024 / UNDERGRADUATE</span><h3>Cryptography lecture</h3><p>An approachable mathematical bridge through classical ciphers, one-time pads, Diffie–Hellman and RSA.</p><p><a href="https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec10.pdf">Lecture 10 PDF</a></p></article>
+        <article class="card"><span class="meta">6.875 / SPRING 2005 / GRADUATE</span><h3>Cryptography and Cryptanalysis</h3><p>An advanced continuation on encryption, pseudorandomness, signatures, two-party protocols and zero knowledge. Keep this for post-week depth.</p><p><a href="https://ocw.mit.edu/courses/6-875-cryptography-and-cryptanalysis-spring-2005/">Course home</a></p></article>
+      </div>
+
+      <h2>One-week MIT reading map</h2>
+      <table>
+        <thead><tr><th>Day</th><th>Required MIT material</th><th>Purpose</th><th>Time box</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>6.858 Lecture 1; 6.033 Security Part I</td><td>Threat models, goals, guards and least privilege</td><td>75 min</td></tr>
+          <tr><td>2</td><td>6.033 OS/network outlines; 6.829 overview</td><td>System and network context</td><td>60 min</td></tr>
+          <tr><td>3</td><td>6.858 Lectures 8 and 9</td><td>Browser model and secure web applications</td><td>100 min</td></tr>
+          <tr><td>4</td><td>6.1200J Lecture 10; selected 6.857 notes</td><td>Cryptographic properties and failure modes</td><td>90 min</td></tr>
+          <tr><td>5</td><td>6.858 threat-model and system-design material</td><td>Turn modeled behavior into telemetry hypotheses</td><td>45 min</td></tr>
+          <tr><td>6</td><td>6.858 lab descriptions and exam review</td><td>Assessment reasoning and validation discipline</td><td>60 min</td></tr>
+          <tr><td>7</td><td>Review 6.858 final-project expectations</td><td>Integrate system design, attack and defense</td><td>45 min</td></tr>
+        </tbody>
+      </table>
+
+      <h2>How to use the full material after this week</h2>
+      <div class="grid">
+        <article class="card"><h3>First 30 days</h3><p>Work through the 6.858 lecture sequence and pair each topic with one local lab and a one-page explanation in your own words.</p></article>
+        <article class="card"><h3>Days 31–60</h3><p>Use 6.857 problem sets to deepen cryptographic and network-security reasoning. Explain every solution; do not memorize it.</p></article>
+        <article class="card"><h3>Days 61–90</h3><p>Complete an original capstone: threat model, implementation, security tests, detection requirements and a professional report.</p></article>
+        <article class="card"><h3>Safety rule</h3><p>MIT’s own security syllabi emphasize legal and ethical limits. Keep all attack work inside your lab or a written authorization boundary.</p></article>
+      </div>
+    </main>
+  </body>
+</html>

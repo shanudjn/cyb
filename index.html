@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A seven-day cybersecurity foundations course for software engineers and aspiring security-company founders."
+    />
+    <meta name="theme-color" content="#101411" />
+    <title>Packet &amp; Proof — Cybersecurity in 7 Days</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="course-data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#course-view">Skip to course content</a>
+
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand-block">
+          <a class="brand" href="#/home" aria-label="Packet and Proof course home">
+            <span class="brand-mark" aria-hidden="true">P/P</span>
+            <span>
+              <strong>PACKET &amp; PROOF</strong>
+              <small>Cybersecurity field course</small>
+            </span>
+          </a>
+          <button class="icon-button mobile-only" id="close-menu" aria-label="Close course navigation">×</button>
+        </div>
+
+        <div class="sidebar-progress" aria-label="Course progress">
+          <div class="progress-copy">
+            <span>COURSE PROGRESS</span>
+            <strong id="sidebar-progress-label">0%</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span id="sidebar-progress-bar"></span>
+          </div>
+        </div>
+
+        <nav class="course-nav" aria-label="Course navigation">
+          <a class="nav-item" data-route="home" href="#/home">
+            <span class="nav-index">00</span>
+            <span><strong>Command desk</strong><small>Overview &amp; progress</small></span>
+          </a>
+          <div id="day-navigation"></div>
+          <a class="nav-item" data-route="final" href="#/final">
+            <span class="nav-index">08</span>
+            <span><strong>Final assessment</strong><small>Prove the foundation</small></span>
+          </a>
+          <a class="nav-item" data-route="resources" href="#/resources">
+            <span class="nav-index">09</span>
+            <span><strong>Field references</strong><small>Cheat sheets &amp; sources</small></span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <p>LEGAL LABS ONLY</p>
+          <small>Test systems you own or are explicitly authorized in writing to assess.</small>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <button class="icon-button mobile-only" id="open-menu" aria-label="Open course navigation">☰</button>
+          <div class="breadcrumb" id="breadcrumb">COURSE / COMMAND DESK</div>
+          <div class="topbar-actions">
+            <button class="text-button" id="open-glossary">Glossary <span aria-hidden="true">↗</span></button>
+            <button class="text-button danger-text" id="reset-progress">Reset</button>
+          </div>
+        </header>
+
+        <main id="course-view" tabindex="-1" aria-live="polite"></main>
+      </div>
+    </div>
+
+    <div class="menu-scrim" id="menu-scrim" hidden></div>
+
+    <dialog class="glossary-dialog" id="glossary-dialog">
+      <form method="dialog" class="dialog-header">
+        <div>
+          <span class="eyebrow">QUICK REFERENCE</span>
+          <h2>Cybersecurity glossary</h2>
+        </div>
+        <button class="icon-button" value="close" aria-label="Close glossary">×</button>
+      </form>
+      <label class="search-field">
+        <span>Search terms</span>
+        <input id="glossary-search" type="search" placeholder="Try: least privilege" autocomplete="off" />
+      </label>
+      <div class="glossary-list" id="glossary-list"></div>
+    </dialog>
+
+    <template id="empty-template">
+      <section class="empty-state">
+        <span class="eyebrow">ROUTE NOT FOUND</span>
+        <h1>This page escaped containment.</h1>
+        <p>Return to the command desk and continue the course.</p>
+        <a class="button primary" href="#/home">Return home</a>
+      </section>
+    </template>
+  </body>
+</html>

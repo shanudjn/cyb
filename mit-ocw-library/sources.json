@@ -1,0 +1,72 @@
+{
+  "researched_on": "2026-10-11",
+  "scope": "Official MIT OpenCourseWare material directly relevant to cybersecurity foundations",
+  "policy": "Curated metadata and original summaries; authoritative course files remain linked at MIT OCW",
+  "sources": [
+    {
+      "course": "6.858 Computer Systems Security",
+      "term": "Fall 2014",
+      "level": "Graduate",
+      "instructor": "Nickolai Zeldovich",
+      "url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/",
+      "download": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/download/",
+      "materials": ["syllabus", "calendar", "readings", "lecture notes", "lecture videos", "labs", "exams", "final project"],
+      "course_use": ["threat models", "operating-system security", "privilege separation", "capabilities", "web security", "network protocols"]
+    },
+    {
+      "course": "6.5660 Computer Systems Security",
+      "term": "Spring 2024",
+      "level": "Undergraduate/Graduate",
+      "instructor": "Nickolai Zeldovich",
+      "url": "https://ocw.mit.edu/courses/6-5660-computer-systems-security-spring-2024/",
+      "materials": ["course description", "instructor insights", "external course materials"],
+      "course_use": ["current course framing", "secure systems", "privilege separation", "cryptographic protocols", "web and mobile security"]
+    },
+    {
+      "course": "6.857 Network and Computer Security",
+      "term": "Spring 2014",
+      "level": "Graduate",
+      "instructor": "Ronald Rivest",
+      "url": "https://ocw.mit.edu/courses/6-857-network-and-computer-security-spring-2014/",
+      "download": "https://ocw.mit.edu/courses/6-857-network-and-computer-security-spring-2014/download/",
+      "materials": ["lecture notes", "readings", "problem sets", "programming assignments", "projects"],
+      "course_use": ["security mechanisms", "perfect secrecy", "hashing", "public-key cryptography", "network security"]
+    },
+    {
+      "course": "6.033 Computer System Engineering",
+      "term": "Spring 2018",
+      "level": "Undergraduate",
+      "url": "https://ocw.mit.edu/courses/6-033-computer-system-engineering-spring-2018/",
+      "download": "https://ocw.mit.edu/courses/6-033-computer-system-engineering-spring-2018/download/",
+      "materials": ["operating systems", "networking", "distributed systems", "security lectures", "written assignments"],
+      "course_use": ["security goals", "threat assumptions", "guard model", "complete mediation", "least privilege", "DNSSEC"]
+    },
+    {
+      "course": "6.1200J Mathematics for Computer Science",
+      "term": "Spring 2024",
+      "level": "Undergraduate",
+      "url": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/",
+      "selected_material": "Lecture 10: Cryptography",
+      "selected_url": "https://ocw.mit.edu/courses/6-1200j-mathematics-for-computer-science-spring-2024/mit6_1200j_s24_lec10.pdf",
+      "course_use": ["modular arithmetic", "classical ciphers", "one-time pad", "Diffie-Hellman", "RSA"]
+    },
+    {
+      "course": "6.875 Cryptography and Cryptanalysis",
+      "term": "Spring 2005",
+      "level": "Graduate",
+      "instructor": "Silvio Micali",
+      "url": "https://ocw.mit.edu/courses/6-875-cryptography-and-cryptanalysis-spring-2005/",
+      "materials": ["problem sets"],
+      "course_use": ["modern cryptographic primitives", "digital signatures", "pseudo-randomness", "zero knowledge"]
+    },
+    {
+      "course": "6.829 Computer Networks",
+      "term": "Fall 2002",
+      "level": "Graduate",
+      "instructor": "Hari Balakrishnan",
+      "url": "https://ocw.mit.edu/courses/6-829-computer-networks-fall-2002/",
+      "materials": ["lecture notes", "problem sets", "solutions"],
+      "course_use": ["routing", "congestion", "network architecture", "network security context"]
+    }
+  ]
+}
