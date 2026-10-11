@@ -1,7 +1,9 @@
 globalThis.window = {};
 await import("./course-data.js");
+await import("./mit-lecture-data.js");
 
 const course = globalThis.window.COURSE_DATA;
+const mitCourse = globalThis.window.MIT_LECTURE_DATA;
 const errors = [];
 
 if (!course || !Array.isArray(course.days)) errors.push("Course data is missing days.");
@@ -11,6 +13,17 @@ const lessons = course.days.flatMap((day) => day.lessons);
 const lessonIds = lessons.map((lesson) => lesson.id);
 if (lessons.length !== 21) errors.push(`Expected 21 lessons, found ${lessons.length}.`);
 if (new Set(lessonIds).size !== lessonIds.length) errors.push("Lesson IDs are not unique.");
+
+if (!mitCourse || !Array.isArray(mitCourse.days)) errors.push("MIT guided lecture data is missing.");
+if (mitCourse?.days.length !== 7) errors.push(`Expected 7 MIT lecture days, found ${mitCourse?.days.length || 0}.`);
+for (const day of mitCourse?.days || []) {
+  if (!day.lecture || !day.ocwUrl || !day.youtubeId || !day.deliverable) errors.push(`MIT lecture day ${day.day} is incomplete.`);
+  if (!Array.isArray(day.segments) || day.segments.length < 5) errors.push(`MIT lecture day ${day.day} needs at least five guided segments.`);
+  for (const segment of day.segments || []) {
+    if (!Number.isInteger(segment.at) || segment.at < 0) errors.push(`MIT lecture day ${day.day} has an invalid timestamp.`);
+    if (!segment.title || !segment.teach || !segment.example || !segment.task || !segment.solution) errors.push(`MIT lecture day ${day.day} has an incomplete segment.`);
+  }
+}
 
 for (const day of course.days) {
   if (!day.title || !day.summary || !day.objectives?.length) errors.push(`Day ${day.id} is incomplete.`);
@@ -41,4 +54,5 @@ if (errors.length) {
 }
 
 const dailyQuestions = course.days.reduce((sum, day) => sum + day.quiz.length, 0);
-console.log(`Verified ${course.days.length} days, ${lessons.length} lessons, ${dailyQuestions} daily questions, and ${course.finalQuiz.length} final questions.`);
+const mitSegments = mitCourse.days.reduce((sum, day) => sum + day.segments.length, 0);
+console.log(`Verified ${course.days.length} days, ${lessons.length} lessons, ${mitSegments} MIT lecture stops, ${dailyQuestions} daily questions, and ${course.finalQuiz.length} final questions.`);

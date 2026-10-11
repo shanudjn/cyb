@@ -47,14 +47,16 @@ the same run instructions.
 
 ## Included
 
-- Seven daily modules, approximately four hours each
+- Seven daily modules with a 40-hour intensive schedule
 - 21 lessons with explanations, examples and safe practical exercises
+- Seven guided MIT OCW lectures with 35 timestamped learning stops
+- Original teaching notes, worked examples, exercises and model answers for every lecture stop
 - Seven daily quizzes with teaching explanations
 - A 15-question final assessment
 - Progress tracking and resume support
 - Searchable glossary
 - Field-reference page
-- MIT OpenCourseWare research library and one-week reading map
+- MIT OpenCourseWare research library and active-learning studio
 - Responsive desktop and mobile layouts
 
 ## Daily schedule
@@ -78,9 +80,23 @@ authorized in writing to assess.
 - `index.html` — application shell
 - `styles.css` — responsive visual design
 - `course-data.js` — lessons, quizzes, glossary and sources
+- `mit-lecture-data.js` — MIT lecture map, timestamp links, teaching notes and exercises
 - `app.js` — navigation, rendering, progress and quiz behavior
 - `mit-ocw-library/` — curated MIT OCW research index
 - `verify.mjs` — content-integrity checks
 - `smoke-test.mjs` — route-rendering smoke checks
 
 Run the verification commands above after editing the curriculum.
+
+## MIT OpenCourseWare study method
+
+Open **MIT lecture studio** from the course navigation. Each day contains one
+official MIT 6.858 lecture divided into five guided chapter stops. For each stop:
+
+1. Follow the timestamp link and watch the selected topic.
+2. Return to the course and read the teaching note and worked example.
+3. Complete **Your turn** without looking at the answer.
+4. Reveal the model answer, revise your work, and mark the stop complete.
+
+The course links to MIT's authoritative pages and videos. It does not reproduce
+or republish the full lectures or transcripts.

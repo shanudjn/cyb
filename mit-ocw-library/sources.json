@@ -2,6 +2,20 @@
   "researched_on": "2026-10-11",
   "scope": "Official MIT OpenCourseWare material directly relevant to cybersecurity foundations",
   "policy": "Curated metadata and original summaries; authoritative course files remain linked at MIT OCW",
+  "guided_lecture_studio": {
+    "course": "6.858 Computer Systems Security, Fall 2014",
+    "format": "Seven official lecture pages with 35 timestamped YouTube jump links, original teaching notes, worked examples, exercises and model answers",
+    "timestamp_note": "Guided jump points target the official MIT OpenCourseWare YouTube editions and may vary by a few seconds if an intro or player edition changes.",
+    "lectures": [
+      { "day": 1, "lecture": 1, "title": "Introduction, Threat Models", "video_id": "GqmQg-cszw4", "ocw_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/resources/lecture-1-introduction-threat-models/" },
+      { "day": 2, "lecture": 6, "title": "Capabilities", "video_id": "TQhmua7Z2cY", "ocw_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/resources/lecture-6-capabilities/" },
+      { "day": 3, "lecture": 8, "title": "Web Security Model", "video_id": "eRJ_r8WF1Y0", "ocw_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/resources/lecture-8-web-security-model/" },
+      { "day": 4, "lecture": 14, "title": "SSL and HTTPS", "video_id": "q1OF_0ICt9A", "ocw_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/resources/lecture-14-ssl-and-https/" },
+      { "day": 5, "lecture": 12, "title": "Network Security", "video_id": "BZTWXl9QNK8", "ocw_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/resources/lecture-12-network-security/" },
+      { "day": 6, "lecture": 17, "title": "User Authentication", "video_id": "MT7X17ZRo1U", "ocw_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/resources/lecture-17-user-authentication/" },
+      { "day": 7, "lecture": 23, "title": "Security Economics", "video_id": "8PdnOZI7H5E", "ocw_url": "https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/resources/lecture-23-security-economics/" }
+    ]
+  },
   "sources": [
     {
       "course": "6.858 Computer Systems Security",

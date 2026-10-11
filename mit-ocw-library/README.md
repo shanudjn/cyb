@@ -12,7 +12,10 @@ Course** page. Use those packages when you need offline copies so that course
 structure, attribution, licenses, and updates remain intact.
 
 Open `index.html` for the visual library or `sources.json` for the machine-
-readable research manifest.
+readable research manifest. The parent course's **MIT lecture studio** adds
+seven guided lectures, 35 timestamped chapter links, original teaching notes,
+worked examples, exercises and model answers. Its curriculum is stored in
+`../mit-lecture-data.js`.
 
 ## Core corpus
 

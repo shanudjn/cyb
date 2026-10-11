@@ -3,8 +3,8 @@ window.COURSE_DATA = {
   meta: {
     title: "Cybersecurity Foundations in 7 Days",
     subtitle: "A field course for software engineers and future security-company founders",
-    version: "1.0",
-    estimatedHours: 28,
+    version: "1.1",
+    estimatedHours: 40,
     passScore: 80,
     disclaimer:
       "This is an intensive foundation, not a promise of expertise. Perform active security testing only in a laboratory or under explicit written authorization."

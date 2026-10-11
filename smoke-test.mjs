@@ -32,6 +32,7 @@ globalThis.confirm = () => true;
 globalThis.addEventListener = (type, callback) => { listeners[type] = callback; };
 
 await import("./course-data.js");
+await import("./mit-lecture-data.js");
 await import("./app.js");
 
 const view = getElement("#course-view");
@@ -41,6 +42,8 @@ for (const [hash, expected] of [
   ["#/day/3", "Break and build web applications"],
   ["#/lesson/d4-l1", "Practical cryptography and secrets"],
   ["#/quiz/5", "Day 5: Blue team operations"],
+  ["#/mit", "The one-week lecture path"],
+  ["#/mit/day/3", "Timestamped learning path"],
   ["#/final", "Final field assessment"],
   ["#/resources", "Field references and continued study"]
 ]) {
@@ -49,7 +52,7 @@ for (const [hash, expected] of [
   assertIncludes(view.innerHTML, expected, hash);
 }
 
-console.log("Rendered home, day, lesson, quiz, final, and resources routes without a runtime exception.");
+console.log("Rendered home, day, lesson, quiz, MIT studio, final, and resources routes without a runtime exception.");
 
 function assertIncludes(value, expected, label) {
   if (!value.includes(expected)) {

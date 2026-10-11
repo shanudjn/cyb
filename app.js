@@ -2,6 +2,7 @@
   "use strict";
 
   const course = window.COURSE_DATA;
+  const mitCourse = window.MIT_LECTURE_DATA;
   const STORAGE_KEY = "packet-proof-course-v1";
   const view = document.querySelector("#course-view");
   const breadcrumb = document.querySelector("#breadcrumb");
@@ -13,6 +14,7 @@
 
   const defaultState = {
     completedLessons: [],
+    completedMitSegments: [],
     quizScores: {},
     finalScore: null,
     lastLesson: null
@@ -49,10 +51,27 @@
   function totalProgress() {
     const totalLessons = allLessons().length;
     const completed = state.completedLessons.length;
+    const mitSegments = mitCourse.days.flatMap((day) => day.segments);
+    const mitSegmentIds = mitCourse.days.flatMap((day) => day.segments.map((segment) => segmentId(segment, day.day)));
+    const completedMit = state.completedMitSegments.filter((id) => mitSegmentIds.includes(id)).length;
     const dailyQuizzesPassed = course.days.filter((day) => (state.quizScores[day.id] || 0) >= course.meta.passScore).length;
     const finalPassed = (state.finalScore || 0) >= course.meta.passScore ? 1 : 0;
-    const possible = totalLessons + course.days.length + 1;
-    return Math.round(((completed + dailyQuizzesPassed + finalPassed) / possible) * 100);
+    const possible = totalLessons + mitSegments.length + course.days.length + 1;
+    return Math.round(((completed + completedMit + dailyQuizzesPassed + finalPassed) / possible) * 100);
+  }
+
+  function segmentId(segment, dayId) {
+    return `mit-${dayId}-${segment.at}`;
+  }
+
+  function formatTimestamp(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    return `${String(minutes).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+  }
+
+  function mitProgress(day) {
+    const completed = day.segments.filter((segment) => state.completedMitSegments.includes(segmentId(segment, day.day))).length;
+    return { completed, total: day.segments.length };
   }
 
   function updateProgressUI() {
@@ -103,6 +122,10 @@
       renderLesson(parts[1]);
     } else if (parts[0] === "quiz" && parts[1]) {
       renderQuiz(Number(parts[1]));
+    } else if (parts[0] === "mit" && parts[1] === "day" && parts[2]) {
+      renderMitDay(Number(parts[2]));
+    } else if (parts[0] === "mit") {
+      renderMitStudio();
     } else if (parts[0] === "final") {
       renderFinal();
     } else if (parts[0] === "resources") {
@@ -129,7 +152,7 @@
         <p class="lede">A structured field course for software engineers who need the foundations of application security, defense, ethical testing, incident response and security consulting.</p>
         <div class="hero-actions">
           <a class="button primary" href="${next ? `#/lesson/${next.id}` : "#/final"}">${completedCount ? "Continue course" : "Begin day one"} <span aria-hidden="true">→</span></a>
-          <a class="button" href="#/resources">Open field references</a>
+          <a class="button" href="#/mit">Open MIT lecture studio</a>
         </div>
         <div class="notice"><strong>REALITY CHECK</strong><p>${course.meta.disclaimer}</p></div>
         <div class="stat-grid" aria-label="Course statistics">
@@ -159,7 +182,7 @@
           <article class="resource-card"><span class="eyebrow">BUILD</span><h3>Daily field artifacts</h3><p>Risk statement, threat model, request trace, authorization test, cloud review, detection hypothesis, assessment finding and incident timeline.</p></article>
           <article class="resource-card"><span class="eyebrow">PROVE</span><h3>Integrated capstone</h3><p>Secure a small SaaS architecture and package the work as if you were presenting it to a product team and an executive buyer.</p></article>
           <article class="resource-card"><span class="eyebrow">STATUS</span><h3>${completedCount}/${allLessons().length} lessons complete</h3><p>You have attempted ${quizCount}/${course.days.length} daily quizzes. Course progress includes lessons, daily quizzes and the final assessment.</p></article>
-          <article class="resource-card"><span class="eyebrow">ACADEMIC TRACK</span><h3>MIT OpenCourseWare library</h3><p>The local <code>mit-ocw-library</code> folder maps selected official MIT security material into this one-week path with attribution and links.</p></article>
+          <article class="resource-card"><span class="eyebrow">ACADEMIC TRACK</span><h3>MIT OpenCourseWare lecture studio</h3><p>Seven guided lectures provide 35 timestamped chapter stops, original teaching notes, worked examples and active-recall exercises.</p><a href="#/mit">Enter the lecture studio →</a></article>
         </div>
       </section>`;
   }
@@ -205,6 +228,10 @@
       </section>
 
       <section class="section">
+        ${renderMitDayCallout(day.id)}
+      </section>
+
+      <section class="section">
         <div class="section-heading"><h2>Lessons and field work</h2><p>${progress.completed} of ${progress.total} complete</p></div>
         <div class="lesson-list">
           ${day.lessons.map((lesson, index) => renderLessonRow(lesson, day, index)).join("")}
@@ -214,6 +241,99 @@
           <a class="button ${quizScore >= course.meta.passScore ? "primary" : "coral"}" href="#/quiz/${day.id}">${quizScore !== undefined ? "Retake quiz" : "Take quiz"}</a>
         </div>
       </section>`;
+  }
+
+  function renderMitDayCallout(dayId) {
+    const lectureDay = mitCourse.days.find((item) => item.day === dayId);
+    const progress = mitProgress(lectureDay);
+    return `<article class="mit-callout">
+      <div>
+        <span class="eyebrow">MIT OCW GUIDED LECTURE</span>
+        <h2>${lectureDay.lecture}</h2>
+        <p>${lectureDay.goal}</p>
+        <div class="lecture-meta"><span>${progress.completed}/${progress.total} chapter stops complete</span><span>Worked examples included</span></div>
+      </div>
+      <a class="button coral" href="#/mit/day/${dayId}">${progress.completed ? "Continue lecture" : "Start guided lecture"} →</a>
+    </article>`;
+  }
+
+  function renderMitStudio() {
+    setBreadcrumb("MIT lecture studio");
+    markActive("mit");
+    const total = mitCourse.days.reduce((sum, day) => sum + day.segments.length, 0);
+    const completed = state.completedMitSegments.length;
+    view.innerHTML = `
+      <section class="hero mit-hero">
+        <span class="eyebrow">OFFICIAL MIT OCW / ACTIVE LEARNING PATH</span>
+        <h1>Watch less passively. Learn by stopping and doing.</h1>
+        <p class="lede">Seven carefully chosen lectures from MIT 6.858, reorganized into a one-week sequence for a frontend engineer. Every timestamp pairs the lecture with an original explanation, worked example and exercise.</p>
+        <div class="hero-actions"><a class="button primary" href="#/mit/day/${mitCourse.days.find((day) => mitProgress(day).completed < day.segments.length)?.day || 1}">${completed ? "Continue studio" : "Begin day one"} →</a><a class="button" href="https://ocw.mit.edu/courses/6-858-computer-systems-security-fall-2014/" target="_blank" rel="noreferrer">Open MIT course ↗</a></div>
+        <div class="notice"><strong>TIMESTAMP NOTE</strong><p>${mitCourse.meta.note}</p></div>
+        <div class="stat-grid"><div class="stat"><strong>7</strong><span>guided lectures</span></div><div class="stat"><strong>${total}</strong><span>chapter stops</span></div><div class="stat"><strong>${completed}</strong><span>completed stops</span></div><div class="stat"><strong>${mitCourse.meta.estimatedHours}h</strong><span>watch + practice</span></div></div>
+      </section>
+      <section class="section">
+        <div class="section-heading"><h2>The one-week lecture path</h2><p>Budget roughly 90–110 minutes per day. Use the chapter links; pause after each one and complete the task before revealing the model answer.</p></div>
+        <div class="lecture-grid">${mitCourse.days.map(renderMitLectureCard).join("")}</div>
+      </section>
+      <section class="section study-method">
+        <div class="section-heading"><h2>The learning loop</h2><p>Retrieval and application turn lecture content into usable engineering judgment.</p></div>
+        <div class="concept-grid"><article class="concept-card"><strong>1. Watch</strong><p>Open the exact chapter and take only three notes: claim, mechanism and limitation.</p></article><article class="concept-card"><strong>2. Work</strong><p>Close the video and complete the prompt using a system you know.</p></article><article class="concept-card"><strong>3. Verify</strong><p>Reveal the model answer, correct your reasoning and save the day's deliverable.</p></article></div>
+      </section>`;
+  }
+
+  function renderMitLectureCard(day) {
+    const progress = mitProgress(day);
+    return `<a class="lecture-card" href="#/mit/day/${day.day}">
+      <div class="card-top"><span class="day-label">DAY ${String(day.day).padStart(2, "0")}</span><span class="duration">${progress.completed}/${progress.total} stops</span></div>
+      <div><h3>${day.lecture}</h3><p>${day.goal}</p></div>
+      <div class="card-bottom"><span class="status-pill ${progress.completed === progress.total ? "complete" : ""}">${progress.completed === progress.total ? "complete" : "open studio"}</span><span aria-hidden="true">→</span></div>
+    </a>`;
+  }
+
+  function renderMitDay(dayId) {
+    const day = mitCourse.days.find((item) => item.day === dayId);
+    if (!day) return renderNotFound();
+    const progress = mitProgress(day);
+    setBreadcrumb(`MIT studio / Day ${day.day}`);
+    markActive("mit");
+    view.innerHTML = `
+      <section class="lecture-header">
+        <div><span class="eyebrow">DAY ${String(day.day).padStart(2, "0")} / MIT 6.858</span><h1>${day.lecture}</h1><p class="lede">${day.goal}</p><div class="lecture-meta"><span>${day.instructor}</span><span>${progress.completed}/${progress.total} chapter stops</span></div><div class="hero-actions"><a class="button primary" href="https://www.youtube.com/watch?v=${day.youtubeId}" target="_blank" rel="noreferrer">Open full lecture ↗</a><a class="button" href="${day.ocwUrl}" target="_blank" rel="noreferrer">MIT page + transcript ↗</a></div></div>
+        <aside class="briefing-card"><span class="eyebrow">TODAY'S ARTIFACT</span><h3>Build evidence of learning</h3><p>${day.deliverable}</p><p class="small-note">Recommended: watch each linked section, complete the task without notes, then compare your answer.</p></aside>
+      </section>
+      <section class="section">
+        <div class="section-heading"><h2>Timestamped learning path</h2><p>Links open the official video at the selected topic. Jump points are approximate; use the topic title to orient if playback shifts slightly.</p></div>
+        <div class="chapter-list">${day.segments.map((segment, index) => renderMitSegment(day, segment, index)).join("")}</div>
+        <div class="lesson-actions"><a class="button" href="${day.day > 1 ? `#/mit/day/${day.day - 1}` : "#/mit"}">← ${day.day > 1 ? "Previous lecture" : "Lecture studio"}</a><a class="button primary" href="${day.day < 7 ? `#/mit/day/${day.day + 1}` : "#/final"}">${day.day < 7 ? "Next lecture" : "Final assessment"} →</a></div>
+      </section>`;
+
+    document.querySelectorAll(".segment-toggle").forEach((button) => button.addEventListener("click", toggleMitSegment));
+  }
+
+  function renderMitSegment(day, segment, index) {
+    const id = segmentId(segment, day.day);
+    const complete = state.completedMitSegments.includes(id);
+    return `<article class="chapter-card ${complete ? "complete" : ""}" id="${id}">
+      <div class="chapter-rail"><span>${String(index + 1).padStart(2, "0")}</span><i></i></div>
+      <div class="chapter-content">
+        <div class="chapter-heading"><div><a class="timestamp" href="https://www.youtube.com/watch?v=${day.youtubeId}&t=${segment.at}s" target="_blank" rel="noreferrer">▶ ${formatTimestamp(segment.at)} · watch from here</a><h2>${segment.title}</h2></div><button class="segment-toggle ${complete ? "complete" : ""}" data-segment-id="${id}">${complete ? "✓ Complete" : "Mark complete"}</button></div>
+        <div class="teaching-block"><span class="box-label">TEACHING NOTE</span><p>${segment.teach}</p></div>
+        <div class="worked-example"><span class="box-label">WORKED EXAMPLE</span><p>${segment.example}</p></div>
+        <div class="practice-prompt"><span class="box-label">YOUR TURN</span><p>${segment.task}</p><details><summary>Reveal a model answer</summary><p>${segment.solution}</p></details></div>
+      </div>
+    </article>`;
+  }
+
+  function toggleMitSegment(event) {
+    const id = event.currentTarget.dataset.segmentId;
+    if (state.completedMitSegments.includes(id)) {
+      state.completedMitSegments = state.completedMitSegments.filter((segment) => segment !== id);
+    } else {
+      state.completedMitSegments.push(id);
+    }
+    saveState();
+    const dayId = Number(id.split("-")[1]);
+    renderMitDay(dayId);
   }
 
   function renderLessonRow(lesson, day, index) {
